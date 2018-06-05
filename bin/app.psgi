@@ -7,9 +7,9 @@ use lib "$FindBin::Bin/../lib";
 
 
 # use this block if you don't need middleware, and only have a single target Dancer app to run here
-use MyDancer::App;
+use Config::App;
 
-MyDancer::App->to_app;
+Config::App->to_app;
 
 =begin comment
 # use this block if you want to include middleware such as Plack::Middleware::Deflater
@@ -42,4 +42,3 @@ builder {
 =end comment
 
 =cut
-
