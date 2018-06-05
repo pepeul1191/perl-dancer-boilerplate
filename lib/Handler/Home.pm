@@ -5,9 +5,9 @@ use Config::Helpers;
 use Helper::Home;
 
 hook before => sub {
-    response_header 'X-Powered-By' => 'Perl Dancer 1.3202, Ubuntu';
-    #print Filter::Acl::alc(request);
-  };
+  response_header 'X-Powered-By' => 'Perl Dancer 1.3202, Ubuntu';
+  #print Filter::Acl::alc(request);
+};
 
 get '/' => sub {
   my $helper = \%Config::Helpers::ViewHelpers;
