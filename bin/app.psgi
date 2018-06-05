@@ -3,13 +3,19 @@
 use strict;
 use warnings;
 use FindBin;
+use Plack::Builder;
 use lib "$FindBin::Bin/../lib";
-
-
+use Config::App; # aplicación principal
+# handlers
+use Handler::Home;
 # use this block if you don't need middleware, and only have a single target Dancer app to run here
-use Config::App;
 
-Config::App->to_app;
+builder {
+  enable 'Deflater';
+  Config::App->to_app;
+  mount '/'      => Handler::Home->to_app;
+}
+
 
 =begin comment
 # use this block if you want to include middleware such as Plack::Middleware::Deflater
