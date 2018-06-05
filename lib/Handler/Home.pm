@@ -1,5 +1,8 @@
 package Handler::Home;
 use Dancer2;
+use Config::Constants;
+use Config::Helpers;
+use Helper::Home;
 
 hook before => sub {
     response_header 'X-Powered-By' => 'Perl Dancer 1.3202, Ubuntu';
@@ -7,11 +10,15 @@ hook before => sub {
   };
 
 get '/' => sub {
+  my $helper = \%Config::Helpers::ViewHelpers;
+  my $HomeHelper = \%Helper::Home::HomeHelper;
   my %context = (
-    'title'  => 'Animalitos Perl',
-    'menu' => '[{"url":"#/","nombre":"Home"},{"url":"#/buscar","nombre":"Buscar"},{"url":"#/contacto","nombre":"Contacto"}]',
-    'data'  => '""',
-    'qunit' => 1
+    title  => 'Animalitos Perl',
+    menu => '[{"url":"#/","nombre":"Home"},{"url":"#/buscar","nombre":"Buscar"},{"url":"#/contacto","nombre":"Contacto"}]',
+    data  => '""',
+    css => $helper->{'loas_css'}($HomeHelper->{'index_css'}()),
+    js => $helper->{'load_js'}($HomeHelper->{'index_js'}()),
+    qunit => 1
   );
   #template 'home/index.tt', {%context}, { layout => 'site.tt' };
   template 'home/index.tt', {%context}, { layout => 'blank.tt' };
