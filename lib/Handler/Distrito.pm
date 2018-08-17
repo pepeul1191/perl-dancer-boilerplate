@@ -10,12 +10,48 @@ use Config::Helpers;
 use Config::Database;
 use Config::Schema;
 use Helper::Home;
-
-use Data::Dumper;
+#use Data::Dumper;
 
 hook before => sub {
   response_header 'X-Powered-By' => 'Perl Dancer 1.3202, Ubuntu';
   #print Filter::Acl::alc(request);
+};
+
+get '/listar/:provincia_id' => sub {
+  my $rpta = '';
+  my $status = 200;
+  my $provincia_id = route_parameters->get('provincia_id');
+  try{
+    my @rs = $Config::Database::DB
+      ->resultset('Distrito')
+      ->search(
+        {
+          provincia_id => $provincia_id,
+        },{
+          columns => ['id', 'nombre'],
+        }
+      );
+    my @temp = ();
+    for my $r(@rs){
+      push @temp, {
+        id => $r->id,
+        nombre => $r->nombre,
+      }
+    }
+    $rpta = \@temp;
+  }catch {
+    my %temp = (
+      tipo_mensaje => 'error',
+      mensaje => [
+        'Se ha producido un error en listar los distritos de la provincia',
+        $_,
+      ],
+    );
+    $status = 500;
+    $rpta = \%temp;
+  };
+  status $status;
+  return Encode::decode('utf8', JSON::to_json($rpta));
 };
 
 get '/buscar' => sub {

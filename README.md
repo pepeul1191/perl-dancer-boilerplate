@@ -40,3 +40,4 @@ Fuentes:
 + https://metacpan.org/pod/DBIx::Class
 + https://metacpan.org/pod/DBIx::Class::Schema
 + https://metacpan.org/pod/release/ARCANEZ/DBIx-Class-0.08126/lib/DBIx/Class/Schema.pm
++ https://www.perlmonks.org/?node_id=1114821
