@@ -2,7 +2,10 @@ package Handler::Home;
 use Dancer2;
 use Config::Constants;
 use Config::Helpers;
+use Config::Database;
 use Helper::Home;
+
+use Data::Dumper;
 
 hook before => sub {
   response_header 'X-Powered-By' => 'Perl Dancer 1.3202, Ubuntu';
@@ -20,6 +23,15 @@ get '/' => sub {
     js => $helper->{'load_js'}($HomeHelper->{'index_js'}()),
     qunit => 1
   );
+  print("1 ++++++++++++++++++++++++++++++++");
+  my $row = $Config::Database::teng->single('departamentos' =>
+    {
+      id => 10
+    }
+  )->{'row_data'};
+  print("\n");print Dumper($row);print("\n");
+  print($row);
+  print("2 ++++++++++++++++++++++++++++++++");
   #template 'home/index.tt', {%context}, { layout => 'site.tt' };
   template 'home/index.tt', {%context}, { layout => 'blank.tt' };
 };
