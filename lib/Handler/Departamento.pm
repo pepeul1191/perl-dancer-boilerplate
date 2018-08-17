@@ -8,6 +8,7 @@ use Try::Tiny;
 use Config::Constants;
 use Config::Helpers;
 use Config::Database;
+use Config::Schema;
 use Helper::Home;
 
 use Data::Dumper;
@@ -21,11 +22,13 @@ get '/listar' => sub {
   my $rpta = '';
   my $status = 200;
   try{
-    my $db = Config::Database::connection;
-    my @rs = $db->search('departamentos');
+    my @rs = $Config::Database::DB->resultset('Departamento')->all;
     my @temp = ();
     for my $r(@rs){
-      push @temp, $r->{'row_data'};
+      push @temp, {
+        id => $r->id,
+        nombre => $r->nombre,
+      }
     }
     $rpta = \@temp;
   }catch {

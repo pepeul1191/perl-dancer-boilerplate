@@ -24,11 +24,18 @@ Migraciones con DBMATE - ubicaciones:
     $ dbmate -d "ubicaciones/migrations" -e "DATABASE_UBICACIONES" new <<nombre_de_migracion>>
     $ dbmate -d "ubicaciones/migrations" -e "DATABASE_UBICACIONES" up
 
+### Dump de variables
+
+		use Data::Dumper;
+
+    #print("\nA\n");print($url);print("\nB\n");
+    #print("\n");print Dumper(%temp);print("\n");
+
 ---
 
 Fuentes:
 
 + http://blog.endpoint.com/2015/01/cleaner-redirection-in-perl-dancer.html
 + https://metacpan.org/pod/Dancer2::Manual#response_headers
-+ https://qiita.com/ymko/items/f14ac7c64f8416a710d1
-+ https://qiita.com/ymko/items/9a564cbe354db0342149
++ https://metacpan.org/pod/DBIx::Class
++ https://metacpan.org/pod/DBIx::Class::Schema

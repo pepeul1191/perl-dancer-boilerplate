@@ -1,26 +1,12 @@
 package Config::Database;
-use Teng;
-use Teng::Schema::Loader;
+use Config::Schema;
 use DBI;
 
-sub connection {
-  my $driver   = 'SQLite';
-  my $database = 'db/ubicaciones.db';
-  my $dsn = 'DBI:' . $driver . ':dbname=' . $database;
-  my $userid = '';
-  my $password = '';
-
-  return Teng::Schema::Loader->load(
-    dbh => DBI->connect(
-      $dsn,
-      $userid,
-      $password,
-      {
-        RaiseError => 1
-      }
-    ),
-    namespace => 'Model',
-  );
-}
+my $driver   = 'SQLite';
+my $database = 'db/ubicaciones.db';
+my $dsn = 'DBI:' . $driver . ':dbname=' . $database;
+my $userid = '';
+my $password = '';
+our $DB = Config::Schema->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
 
 1;
