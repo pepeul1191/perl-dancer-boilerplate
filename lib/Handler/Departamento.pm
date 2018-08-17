@@ -20,8 +20,9 @@ hook before => sub {
 get '/listar' => sub {
   my $rpta = '';
   my $status = 200;
+  my $db = $Config::Database::teng;
   try{
-    my @rs = $Config::Database::teng->search('departamentoss');
+    my @rs = $db->search('departamentos');
     my @temp = ();
     for my $r(@rs){
       push @temp, $r->{'row_data'};
@@ -37,6 +38,8 @@ get '/listar' => sub {
     );
     $status = 500;
     $rpta = \%temp;
+  }finally{
+    $db->disconnect();
   };
   status $status;
   return Encode::decode('utf8', JSON::to_json($rpta));

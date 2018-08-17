@@ -30,3 +30,5 @@ Fuentes:
 
 + http://blog.endpoint.com/2015/01/cleaner-redirection-in-perl-dancer.html
 + https://metacpan.org/pod/Dancer2::Manual#response_headers
++ https://qiita.com/ymko/items/f14ac7c64f8416a710d1
++ https://qiita.com/ymko/items/9a564cbe354db0342149
