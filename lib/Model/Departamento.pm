@@ -1,4 +1,4 @@
-package Config::Schema::Result::Departamento;
+package Model::Departamento;
 use base qw/DBIx::Class::Core/;
 
 __PACKAGE__->table('departamentos');
