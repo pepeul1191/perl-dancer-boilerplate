@@ -4,6 +4,7 @@ use utf8;
 use JSON;
 use JSON::Parse 'parse_json';
 use Encode qw(decode encode);
+use Try::Tiny;
 use Config::Constants;
 use Config::Helpers;
 use Config::Database;
@@ -17,12 +18,25 @@ hook before => sub {
 };
 
 get '/listar' => sub {
-  my @rs = $Config::Database::teng->search('departamentos');
-  my @rpta = ();
-  for my $r(@rs){
-    push @rpta, $r->{'row_data'};
-  }
-  return Encode::decode('utf8', JSON::to_json \@rpta);
+  my $rpta = '';
+  try{
+    my @rs = $Config::Database::teng->search('departamentoss');
+    my @temp = ();
+    for my $r(@rs){
+      push @temp, $r->{'row_data'};
+    }
+    $rpta = JSON::to_json \@temp;
+  }catch {
+    my %temp = (
+      tipo_mensaje => 'error',
+      mensaje => [
+        'Se ha producido un error en listar los departamentos',
+        $_,
+      ],
+    );
+    $rpta = JSON::to_json \%temp;
+  };
+  return Encode::decode('utf8', $rpta);
 };
 
 1;
