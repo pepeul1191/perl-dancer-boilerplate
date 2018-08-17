@@ -17,6 +17,13 @@ Arrancar en modo de producción con workers:
 
 	$ plackup -E deployment -s Starman --workers=50 -p 4000 -a bin/app.psgi
 
+### Mmigraciones
+
+Migraciones con DBMATE - ubicaciones:
+
+    $ dbmate -d "ubicaciones/migrations" -e "DATABASE_UBICACIONES" new <<nombre_de_migracion>>
+    $ dbmate -d "ubicaciones/migrations" -e "DATABASE_UBICACIONES" up
+
 ---
 
 Fuentes:
