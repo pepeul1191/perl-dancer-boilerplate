@@ -19,13 +19,14 @@ hook before => sub {
 
 get '/listar' => sub {
   my $rpta = '';
+  my $status = 200;
   try{
     my @rs = $Config::Database::teng->search('departamentoss');
     my @temp = ();
     for my $r(@rs){
       push @temp, $r->{'row_data'};
     }
-    $rpta = JSON::to_json \@temp;
+    $rpta = \@temp;
   }catch {
     my %temp = (
       tipo_mensaje => 'error',
@@ -34,9 +35,11 @@ get '/listar' => sub {
         $_,
       ],
     );
-    $rpta = JSON::to_json \%temp;
+    $status = 500;
+    $rpta = \%temp;
   };
-  return Encode::decode('utf8', $rpta);
+  status $status;
+  return Encode::decode('utf8', JSON::to_json($rpta));
 };
 
 1;

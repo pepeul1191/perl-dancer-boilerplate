@@ -29,3 +29,4 @@ Migraciones con DBMATE - ubicaciones:
 Fuentes:
 
 + http://blog.endpoint.com/2015/01/cleaner-redirection-in-perl-dancer.html
++ https://metacpan.org/pod/Dancer2::Manual#response_headers
