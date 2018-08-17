@@ -41,7 +41,7 @@ get '/listar/:provincia_id' => sub {
     my %temp = (
       tipo_mensaje => 'error',
       mensaje => [
-        'Se ha producido un error en buscar los distritos',
+        'Se ha producido un error en listar los distritos',
         $@->{'msg'},
       ],
     );
@@ -56,7 +56,7 @@ get '/buscar' => sub {
   my $rpta = '';
   my $status = 200;
   my $nombre = query_parameters->get('nombre');
-  try{
+  eval {
     my @rs = $Config::Database::DB
       ->resultset('VWDistritoProvinciaDepartamento')
       ->search_like(
@@ -75,17 +75,18 @@ get '/buscar' => sub {
       }
     }
     $rpta = \@temp;
-  }catch {
+  };
+  if($@ ne ''){
     my %temp = (
       tipo_mensaje => 'error',
       mensaje => [
         'Se ha producido un error en buscar los distritos',
-        $_,
+        $@->{'msg'},
       ],
     );
     $status = 500;
     $rpta = \%temp;
-  };
+  }
   status $status;
   return Encode::decode('utf8', JSON::to_json($rpta));
 };
