@@ -8,12 +8,14 @@ use lib "$FindBin::Bin/../lib";
 use Config::App; # aplicación principal
 # handlers
 use Handler::Home;
+use Handler::Departamento;
 # use this block if you don't need middleware, and only have a single target Dancer app to run here
 
 builder {
   enable 'Deflater';
   Config::App->to_app;
-  mount '/'      => Handler::Home->to_app;
+  mount '/'             => Handler::Home->to_app;
+  mount '/departamento' => Handler::Departamento->to_app;
 }
 
 

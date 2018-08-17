@@ -30,8 +30,14 @@ get '/' => sub {
     }
   )->{'row_data'};
   print("\n");print Dumper($row);print("\n");
-  print($row);
+  my @rs = $Config::Database::teng->search('departamentos');
+  my @departamentos = ();
+  for my $r(@rs){
+    push @departamentos, $r->{'row_data'};
+  }
   print("2 ++++++++++++++++++++++++++++++++");
+  print("\n");print Dumper(@departamentos);print("\n");
+  print("3 ++++++++++++++++++++++++++++++++");
   #template 'home/index.tt', {%context}, { layout => 'site.tt' };
   template 'home/index.tt', {%context}, { layout => 'blank.tt' };
 };
