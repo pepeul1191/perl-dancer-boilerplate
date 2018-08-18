@@ -1,10 +1,15 @@
 package Handler::Login;
 use Dancer2;
+use DateTime;
+use utf8;
+use JSON;
+use JSON::Parse 'parse_json';
+use Encode qw(decode encode);
 use Config::Constants;
 use Config::Helpers;
 use Config::Database;
 use Helper::Login;
-#use Data::Dumper;
+use Data::Dumper;
 hook before => sub {
   #print Filter::Acl::alc(request);
 };
@@ -33,7 +38,9 @@ post '/acceder' => sub {
     $mensaje = 'Eror de validación de CSRF';
   }else{
     if($usuario eq %Config::Constants::Login{'usuario'} && $contrasenia eq %Config::Constants::Login{'contrasenia'}){
-      #TODO : session
+      session usuario => $usuario;
+      session estado => 'activo';
+      session momento => DateTime->now;
       my $url = %Config::Constants::Data{'BASE_URL'};
       redirect $url;
       $mensaje = %Config::Constants::Data{'BASE_URL'};
@@ -53,6 +60,25 @@ post '/acceder' => sub {
     js => $helper->{'load_js'}($LoginHelper->{'index_js'}()),
   );
   template 'login/index.tt', { %context }, { layout => 'blank.tt' };
+};
+
+get '/ver' => sub {
+  my $usuario = session 'usuario';
+  my $estado = session 'estado';
+  my $momento = session 'momento';
+  my %rpta = (
+    usuario => $usuario,
+    estado => $estado,
+    #momento => $momento,
+  );
+  #print("\n");print Dumper(\%rpta);print("\n");
+  return Encode::decode('utf8', JSON::to_json(\%rpta));
+};
+
+get '/salir' => sub {
+  context->destroy_session;
+  my $url = %Config::Constants::Data{'BASE_URL'};
+  redirect $url . 'login';
 };
 
 1;

@@ -46,3 +46,5 @@ Fuentes:
 + https://metacpan.org/pod/Dancer::Session::Cookie
 + https://metacpan.org/pod/Dancer::Session
 + https://github.com/PerlDancer/Dancer2-Session-Cookie/issues/18
++ https://stackoverflow.com/questions/1814196/quickly-getting-to-yyyy-mm-dd-hhmmss-in-perl
++ http://dancer-users.dancer.narkive.com/se0ZYJ6t/dancer2-session-destroy-fails
