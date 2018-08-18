@@ -11,7 +11,27 @@ use Config::Database;
 use Helper::Login;
 use Data::Dumper;
 hook before => sub {
-  #print Filter::Acl::alc(request);
+  if (request->path eq '/ver') {
+    print("\n");print Dumper(context);print("\n");
+    my $ambiente = %Config::Constants::Ambiente{'session'};
+    if($ambiente eq 'activo'){
+      my $estado = session 'estado';
+      if($estado ne 'activo'){
+        my $url = %Config::Constants::Data{'BASE_URL'};
+        redirect $url . 'error/access/505';
+      }
+    }
+  }
+  if (request->path eq '/') {
+    my $ambiente = %Config::Constants::Ambiente{'session'};
+    if($ambiente eq 'activo'){
+      my $estado = session 'estado';
+      if($estado eq 'activo'){
+        my $url = %Config::Constants::Data{'BASE_URL'};
+        redirect $url;
+      }
+    }
+  }
 };
 
 get '/' => sub {

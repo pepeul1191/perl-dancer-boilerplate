@@ -12,6 +12,12 @@ our %Data = (
 
 );
 
+our %Ambiente = (
+  session => 'activo',
+  csrf => 'activo',
+  static => 'desarrollo',
+);
+
 our %FTP = (
   host => '192.168.1.11',
   user => 'pepe',
