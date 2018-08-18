@@ -10,6 +10,7 @@ use Config::App; # aplicación principal
 use Handler::Home;
 use Handler::Departamento;
 use Handler::Distrito;
+use Handler::Login;
 # use this block if you don't need middleware, and only have a single target Dancer app to run here
 
 builder {
@@ -17,6 +18,7 @@ builder {
   Config::App->to_app;
   mount '/'             => Handler::Home->to_app;
   mount '/departamento' => Handler::Departamento->to_app;
+  mount '/login' => Handler::Login->to_app;
   mount '/distrito' => Handler::Distrito->to_app;
 }
 
