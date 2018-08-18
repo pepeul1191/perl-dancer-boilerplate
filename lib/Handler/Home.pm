@@ -5,7 +5,6 @@ use Config::Helpers;
 use Config::Database;
 use Helper::Home;
 #use Data::Dumper;
-
 hook before => sub {
   #print Filter::Acl::alc(request);
 };

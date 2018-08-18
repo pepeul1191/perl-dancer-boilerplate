@@ -50,3 +50,13 @@ template: "simple"
 #      cookie_name: eshop.session
 #      is_secure: 1
 #      is_http_only: 1
+session: Cookie
+session_expires: 1 hour
+engines:
+  session:
+    Simple:
+      cookie_name: myapp.session
+    Cookie:
+      secret_key: oYnp8osHeJR6qklB7QKgxX056UNPUZ
+      default_duration: 604800
+      with_request_address: 0

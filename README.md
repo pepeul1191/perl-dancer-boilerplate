@@ -3,7 +3,7 @@
 Instalación de paquetes de CPANM
 
 	$ curl -L http://cpanmin.us | perl - --sudo Dancer2
-	$ sudo cpanm Plack::Middleware::Deflater DBD::SQLite DBD::mysql JSON JSON::Create JSON::XS Crypt::MCrypt Try::Tiny Plack::Loader::Shotgun Plack::Handler::Starman Plack::Middleware::Headers
+	$ sudo cpanm Plack::Middleware::Deflater DBD::SQLite DBD::mysql JSON JSON::Create JSON::XS Crypt::MCrypt Try::Tiny Plack::Loader::Shotgun Plack::Handler::Starman Plack::Middleware::Headers Dancer2::Session::Cookie
 
 Arrancar Dancer:
 
@@ -43,3 +43,6 @@ Fuentes:
 + https://www.perlmonks.org/?node_id=1114821
 + https://metacpan.org/pod/Dancer2::Tutorial
 + https://perlmaven.com/refactoring-dancer2-using-before-hook
++ https://metacpan.org/pod/Dancer::Session::Cookie
++ https://metacpan.org/pod/Dancer::Session
++ https://github.com/PerlDancer/Dancer2-Session-Cookie/issues/18
