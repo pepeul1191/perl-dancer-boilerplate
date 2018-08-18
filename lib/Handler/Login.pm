@@ -69,7 +69,7 @@ get '/ver' => sub {
   my %rpta = (
     usuario => $usuario,
     estado => $estado,
-    #momento => $momento,
+    momento => $momento->ymd . ' ' . $momento->hms,
   );
   #print("\n");print Dumper(\%rpta);print("\n");
   return Encode::decode('utf8', JSON::to_json(\%rpta));
