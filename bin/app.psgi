@@ -16,10 +16,11 @@ use Handler::Login;
 builder {
   enable 'Deflater';
   Config::App->to_app;
+  enable 'Headers', set => ['X-Powered-By' => 'Perl Dancer 1.3202, Ubuntu'];
   mount '/'             => Handler::Home->to_app;
   mount '/departamento' => Handler::Departamento->to_app;
-  mount '/login' => Handler::Login->to_app;
-  mount '/distrito' => Handler::Distrito->to_app;
+  mount '/login'        => Handler::Login->to_app;
+  mount '/distrito'     => Handler::Distrito->to_app;
 }
 
 

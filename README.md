@@ -3,7 +3,7 @@
 Instalación de paquetes de CPANM
 
 	$ curl -L http://cpanmin.us | perl - --sudo Dancer2
-	$ sudo cpanm Plack::Middleware::Deflater DBD::SQLite DBD::mysql JSON JSON::Create JSON::XS Crypt::MCrypt Try::Tiny Plack::Loader::Shotgun Plack::Handler::Starman
+	$ sudo cpanm Plack::Middleware::Deflater DBD::SQLite DBD::mysql JSON JSON::Create JSON::XS Crypt::MCrypt Try::Tiny Plack::Loader::Shotgun Plack::Handler::Starman Plack::Middleware::Headers
 
 Arrancar Dancer:
 
@@ -41,3 +41,5 @@ Fuentes:
 + https://metacpan.org/pod/DBIx::Class::Schema
 + https://metacpan.org/pod/release/ARCANEZ/DBIx-Class-0.08126/lib/DBIx/Class/Schema.pm
 + https://www.perlmonks.org/?node_id=1114821
++ https://metacpan.org/pod/Dancer2::Tutorial
++ https://perlmaven.com/refactoring-dancer2-using-before-hook
