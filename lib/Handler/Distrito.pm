@@ -4,10 +4,8 @@ use utf8;
 use JSON;
 use JSON::Parse 'parse_json';
 use Encode qw(decode encode);
-use Try::Tiny;
 use Config::Database;
 use Config::Schema;
-use Helper::Home;
 #use Data::Dumper;
 hook before => sub {
   #print Filter::Acl::alc(request);

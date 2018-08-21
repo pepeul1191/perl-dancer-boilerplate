@@ -1,4 +1,4 @@
-package Handler::Departamento;
+package Handler::Provincia;
 use Dancer2;
 use utf8;
 use JSON;
@@ -11,11 +11,20 @@ hook before => sub {
   #print Filter::Acl::alc(request);
 };
 
-get '/listar' => sub {
+get '/listar/:departamento_id' => sub {
   my $rpta = '';
   my $status = 200;
+  my $departamento_id = route_parameters->get('departamento_id');
   eval {
-    my @rs = $Config::Database::DB->resultset('Departamento')->all;
+    my @rs = $Config::Database::DB
+      ->resultset('Provincia')
+      ->search(
+        {
+          departamento_id => $departamento_id,
+        },{
+          columns => ['id', 'nombre'],
+        }
+      );
     my @temp = ();
     for my $r(@rs){
       push @temp, {
@@ -29,7 +38,7 @@ get '/listar' => sub {
     my %temp = (
       tipo_mensaje => 'error',
       mensaje => [
-        'Se ha producido un error en listar los distritos',
+        'Se ha producido un error en listar las provincias',
         $@->{'msg'},
       ],
     );
