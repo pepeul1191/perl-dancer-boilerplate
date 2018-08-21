@@ -50,6 +50,7 @@ post '/guardar' => sub {
   my @eliminados = @{$data->{"eliminados"}};
   my @array_nuevos;
   my %rpta = ();
+  $Config::Database::TX->begin_work;
   try {
     for my $nuevo(@nuevos){
       if ($nuevo) {
@@ -84,13 +85,13 @@ post '/guardar' => sub {
     $rpta{'tipo_mensaje'} = "success";
     my @temp = ("Se ha registrado los cambios en los departamentos", [@array_nuevos]);
     $rpta{'mensaje'} = [@temp];
-    #$Departamento->commit();
+    $Config::Database::TX->commit;
   } catch {
     #warn "got dbi error: $_";
     $rpta{'tipo_mensaje'} = "error";
     my @temp = ("Se ha producido un error en guardar la tabla de departamentos", "" . $_);
     $rpta{'mensaje'} = [@temp];
-    #$Departamento->rollback();
+    $Config::Database::TX->rollback;
   };
   #print("\n");print Dumper(%rpta);print("\n");
   return Encode::decode('utf8', JSON::to_json \%rpta);

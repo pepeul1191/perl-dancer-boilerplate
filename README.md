@@ -3,7 +3,7 @@
 Instalación de paquetes de CPANM
 
 	$ curl -L http://cpanmin.us | perl - --sudo Dancer2
-	$ sudo cpanm Plack::Middleware::Deflater DBD::SQLite DBD::mysql JSON JSON::Create JSON::XS Crypt::MCrypt Try::Tiny Plack::Loader::Shotgun Plack::Handler::Starman Plack::Middleware::Headers Dancer2::Session::Cookie Switch
+	$ sudo cpanm Plack::Middleware::Deflater DBD::SQLite DBD::mysql JSON JSON::Create JSON::XS Crypt::MCrypt Try::Tiny Plack::Loader::Shotgun Plack::Handler::Starman Plack::Middleware::Headers Dancer2::Session::Cookie Switch DBIx::Transaction
 
 Arrancar Dancer:
 
