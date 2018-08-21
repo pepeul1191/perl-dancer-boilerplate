@@ -6,7 +6,16 @@ use Config::Database;
 use Helper::Home;
 #use Data::Dumper;
 hook before => sub {
-  #print Filter::Acl::alc(request);
+  if (request->path eq '/') {
+    my $ambiente = %Config::Constants::Ambiente{'session'};
+    if($ambiente eq 'activo'){
+      my $estado = session 'estado';
+      if($estado ne 'activo'){
+        my $url = %Config::Constants::Data{'BASE_URL'};
+        redirect $url . 'error/access/505';
+      }
+    }
+  }
 };
 
 get '/' => sub {
