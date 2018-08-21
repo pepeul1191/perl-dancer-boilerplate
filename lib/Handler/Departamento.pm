@@ -44,8 +44,8 @@ get '/listar' => sub {
 };
 
 any qr{.*} => sub {
-  status 'not_found';
-  '404 =P';
+  my $url = %Config::Constants::Data{'BASE_URL'} . 'error/access/404';
+  redirect $url;
 };
 
 1;

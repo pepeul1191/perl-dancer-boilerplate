@@ -7,6 +7,7 @@ use Plack::Builder;
 use lib "$FindBin::Bin/../lib";
 use Config::App; # aplicación principal
 # handlers
+use Handler::Error;
 use Handler::Home;
 use Handler::Departamento;
 use Handler::Distrito;
@@ -21,6 +22,7 @@ builder {
   mount '/departamento' => Handler::Departamento->to_app;
   mount '/login'        => Handler::Login->to_app;
   mount '/distrito'     => Handler::Distrito->to_app;
+  mount '/error'             => Handler::Error->to_app;
 }
 
 
