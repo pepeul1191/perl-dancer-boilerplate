@@ -15,4 +15,6 @@ any qr{.*} => sub {
   '404 =P';
 };
 
+public: '/public';
+
 dance;
