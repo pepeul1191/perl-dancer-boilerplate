@@ -2,6 +2,7 @@ package Handler::Login;
 use Dancer2;
 use DateTime;
 use utf8;
+use Try::Tiny;
 use JSON;
 use JSON::Parse 'parse_json';
 use Encode qw(decode encode);
@@ -9,17 +10,27 @@ use Config::Constants;
 use Config::Helpers;
 use Config::Database;
 use Helper::Login;
-use Config::Filter;
 #use Data::Dumper;
 hook before => sub {
-  #if (request->path eq '/ver') {
-  if (request->path =~ m{^/ver}) {
-    my $session = session; my $context = context;
-    Config::Filter::session_true($session, $context);
+  if (request->path eq '/ver') {
+    my $ambiente = %Config::Constants::Ambiente{'session'};
+    if($ambiente eq 'activo'){
+      my $estado = session 'estado';
+      if($estado ne 'activo'){
+        my $url = %Config::Constants::Data{'BASE_URL'};
+        redirect $url . 'error/access/505';
+      }
+    }
   }
-  if (request->path =~ m{^/}) {
-    my $session = session; my $context = context;
-    Config::Filter::session_false($session, $context);
+  if (request->path eq '/') {
+    my $ambiente = %Config::Constants::Ambiente{'session'};
+    if($ambiente eq 'activo'){
+      my $estado = session 'estado';
+      if($estado eq 'activo'){
+        my $url = %Config::Constants::Data{'BASE_URL'};
+        redirect $url;
+      }
+    }
   }
 };
 
@@ -72,16 +83,21 @@ post '/acceder' => sub {
 };
 
 get '/ver' => sub {
-  my $usuario = session 'usuario';
-  my $estado = session 'estado';
-  my $momento = session 'momento';
-  my %rpta = (
-    usuario => $usuario,
-    estado => $estado,
-    momento => 'XD',#$momento->ymd . ' ' . $momento->hms,
-  );
-  #print("\n");print Dumper(\%rpta);print("\n");
-  return Encode::decode('utf8', JSON::to_json(\%rpta));
+  try {
+    my $usuario = session 'usuario';
+    my $estado = session 'estado';
+    my $momento = session 'momento';
+    my %rpta = (
+      usuario => $usuario,
+      estado => $estado,
+      momento => $momento->ymd . ' ' . $momento->hms,
+    );
+    #print("\n");print Dumper(\%rpta);print("\n");
+    return Encode::decode('utf8', JSON::to_json(\%rpta));
+  } catch {
+    status 500;
+    return Encode::decode('utf8', 'Error en ver session');
+  };
 };
 
 get '/salir' => sub {
