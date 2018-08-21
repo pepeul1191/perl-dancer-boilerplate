@@ -15,7 +15,7 @@ Arrancar Dancer con autoreload luego de hacer cambios:
 
 Arrancar en modo de producción con workers:
 
-	$ plackup -E deployment -s Starman --workers=50 -p 4000 -a bin/app.psgi
+	$ plackup -E deployment -s Starman --workers=50 -p 5000 -a bin/app.psgi
 
 ### Mmigraciones
 
