@@ -14,13 +14,16 @@ get '/' => sub {
   my $HomeHelper = \%Helper::Home::HomeHelper;
   my %context = (
     title  => 'Animalitos Perl',
-    menu => '[{"url":"#/","nombre":"Home"},{"url":"#/buscar","nombre":"Buscar"},{"url":"#/contacto","nombre":"Contacto"}]',
-    data  => '""',
+    modulos => '[{"url":"contenidos/","nombre":"Contenidos"},{"url":"ubicaciones/","nombre":"Ubicaciones"}]',
+    items => '[{"subtitulo":"","items":[{"item":"Ubicaciones del Perú","url":"ubicaciones/#/ubicacion"},{"item":"Autocompletar","url":"ubicaciones/#/autocompletar"}]}]',
+    data  => '{"mensaje":false,"titulo_pagina":"Gesti\u00f3n de Ubicaciones","modulo":"Ubicaciones"}',
+    csrf => \%Config::Constants::CSRF,
+    constants => \%Config::Constants::Data,
     css => $helper->{'loas_css'}($HomeHelper->{'index_css'}()),
     js => $helper->{'load_js'}($HomeHelper->{'index_js'}()),
     qunit => 1
   );
-  template 'home/index.tt', { %context }, { layout => 'blank.tt' };
+  template 'home/index.tt', { %context }, { layout => 'app.tt' };
 };
 
 any qr{.*} => sub {
