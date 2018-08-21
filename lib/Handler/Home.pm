@@ -23,4 +23,9 @@ get '/' => sub {
   template 'home/index.tt', { %context }, { layout => 'blank.tt' };
 };
 
+any qr{.*} => sub {
+  my $url = %Config::Constants::Data{'BASE_URL'} . 'error/access/404';
+  redirect $url;
+};
+
 1;

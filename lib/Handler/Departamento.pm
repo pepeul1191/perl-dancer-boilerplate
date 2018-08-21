@@ -43,4 +43,9 @@ get '/listar' => sub {
   return Encode::decode('utf8', JSON::to_json($rpta));
 };
 
+any qr{.*} => sub {
+  status 'not_found';
+  '404 =P';
+};
+
 1;

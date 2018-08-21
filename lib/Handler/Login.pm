@@ -106,4 +106,9 @@ get '/salir' => sub {
   redirect $url . 'login';
 };
 
+any qr{.*} => sub {
+  my $url = %Config::Constants::Data{'BASE_URL'} . 'error/access/404';
+  redirect $url;
+};
+
 1;

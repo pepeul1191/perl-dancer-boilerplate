@@ -90,4 +90,9 @@ get '/buscar' => sub {
   return Encode::decode('utf8', JSON::to_json($rpta));
 };
 
+any qr{.*} => sub {
+  my $url = %Config::Constants::Data{'BASE_URL'} . 'error/access/404';
+  redirect $url;
+};
+
 1;

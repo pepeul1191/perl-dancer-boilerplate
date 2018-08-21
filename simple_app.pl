@@ -10,4 +10,9 @@ get '/' => sub {
 
 get '/hola' => \&demo;
 
+any qr{.*} => sub {
+  status 'not_found';
+  '404 =P';
+};
+
 dance;
